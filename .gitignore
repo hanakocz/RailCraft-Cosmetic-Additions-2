@@ -1,0 +1,20 @@
+.gradle/
+.settings/
+bin/
+build/
+eclipse/
+gradle/
+lib/
+libs/
+run/
+.classpath
+.project
+CREDITS-fml.txt
+forge-1.10.2-12.18.3.2185-changelog.txt
+LICENSE-new.txt
+MinecraftForge-Credits.txt
+Paulscode IBXM Library License.txt
+Paulscode SoundSystem CodecIBXM License.txt
+RCC1.10.2_Client.launch
+RCC1.10.2_Server.launch
+README.txt
