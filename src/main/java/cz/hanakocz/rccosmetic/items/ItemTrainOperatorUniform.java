@@ -20,16 +20,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTrainOperatorUniform extends ItemArmor
 {
-	@SideOnly(Side.CLIENT)
-    //private IIcon overlayIcon;
-	private String name;
 	public Item customCraftingMaterial = Item.getItemFromBlock(Blocks.WOOL);
 
-	public ItemTrainOperatorUniform(String unlocalizedName, ArmorMaterial material, String textureName, EntityEquipmentSlot type) 
+	public ItemTrainOperatorUniform(String unlocalizedName, ArmorMaterial material, EntityEquipmentSlot type) 
 	{
 	    super(material, 0, type);
-	    this.name = textureName;	    
-	    //this.setTextureName(unlocalizedName);
 	    setUnlocalizedName(unlocalizedName);
 	    setCreativeTab(RCCosmetic.tabRCCos);
 	    setRegistryName(unlocalizedName);

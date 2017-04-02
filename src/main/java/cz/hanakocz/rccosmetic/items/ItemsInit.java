@@ -41,10 +41,10 @@ public final class ItemsInit
 	
 	public static final void init()
 	{
-		TrainOperatorCap = new ItemTrainOperatorUniform("train_operator_cap", WOOL, "rccosmetic:textures/models/armor/train_operator_cap", EntityEquipmentSlot.HEAD);
-		TrainOperatorChest = new ItemTrainOperatorUniform("train_operator_chest", WOOL, "rccosmetic:textures/models/armor/TrainOperator_layer_1", EntityEquipmentSlot.CHEST);
-		TrainOperatorLegs = new ItemTrainOperatorUniform("train_operator_legs", WOOL, "rccosmetic:textures/models/armor/TrainOperator_layer_2", EntityEquipmentSlot.LEGS);
-		TrainOperatorBoots = new ItemTrainOperatorUniform("train_operator_boots", WOOL, "rccosmetic:textures/models/armor/TrainOperator_layer_1", EntityEquipmentSlot.FEET);
+		TrainOperatorCap = new ItemTrainOperatorUniform("train_operator_cap", WOOL, EntityEquipmentSlot.HEAD);
+		TrainOperatorChest = new ItemTrainOperatorUniform("train_operator_chest", WOOL, EntityEquipmentSlot.CHEST);
+		TrainOperatorLegs = new ItemTrainOperatorUniform("train_operator_legs", WOOL, EntityEquipmentSlot.LEGS);
+		TrainOperatorBoots = new ItemTrainOperatorUniform("train_operator_boots", WOOL, EntityEquipmentSlot.FEET);
 		ModelledCartOpen = new ItemCart("cart.modelled.open", 0);
 		ModelledCartTanker = new ItemCart("cart.modelled.tanker", 1);
 		ModelledCartWood = new ItemCart("cart.modelled.wood", 2);
