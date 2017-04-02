@@ -1,3 +1,16 @@
 {
-	"whistle": {"category": "master","sounds":[rccosmetic:sounds/whistle"]}
+    "whistle": 
+    {   "category": "master",
+        "sounds":
+        [   
+            "rccosmetic:whistle"
+        ]
+    },
+    "heavyBreath": 
+    {   "category": "master",
+        "sounds":
+        [   
+            "rccosmetic:heavyBreath"
+        ]
+    }
 }

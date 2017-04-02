@@ -1,7 +1,9 @@
 package cz.hanakocz.rccosmetic;
 
 import cz.hanakocz.rccosmetic.blocks.BlocksInit;
+import cz.hanakocz.rccosmetic.events.EventsInit;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
+import cz.hanakocz.rccosmetic.recipes.RecipesInit;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -18,6 +20,8 @@ public class CommonProxy
 	{
 		BlocksInit.init();
 		ItemsInit.init();
+		RecipesInit.init();
+		EventsInit.init();
 		
 		//Achievements.init();
 	}

@@ -1,16 +1,16 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "rccosmetic",
+  "name": "Railcraft Cosmetic Additions",
+  "description": "This mod adds cosmetic additions to the main mod Railcraft, by CovertJaguar.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://minecraft.curseforge.com/projects/railcraft-cosmetic-additions",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
+  "authorList": ["Hanakocz", "Kurogari"],
+  "credits": "Idea and previous versions by Cream Tea, code by Hanakocz, art by Kurogari"",
+  "logoFile": "assets/rccosmetic/logo.png",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": ["railcraft"]
 }
 ]

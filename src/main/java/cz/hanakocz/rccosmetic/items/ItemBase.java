@@ -10,11 +10,13 @@ public class ItemBase extends Item
 	protected String name;
 	protected int meta = 0;
 
-	public ItemBase(String name) 
+	public ItemBase(String name, int maxstack) 
 	{
 		this.name = name;
+		maxStackSize = maxstack;
 		setUnlocalizedName(name);
 		setRegistryName(name);
+		setCreativeTab(RCCosmetic.tabRCCos);
 	}
 
 	public void registerItemModel() 

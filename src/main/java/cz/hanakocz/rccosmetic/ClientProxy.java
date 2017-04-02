@@ -1,12 +1,18 @@
 package cz.hanakocz.rccosmetic;
 
+import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
+import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
 import cz.hanakocz.rccosmetic.models.ModelTrainOperatorCap;
+import cz.hanakocz.rccosmetic.render.RenderModelledCart;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -19,6 +25,9 @@ public class ClientProxy extends CommonProxy
 	public void registerRenderers() 
 	{
 		
+		
+		RenderingRegistry.registerEntityRenderingHandler(EntityModelledCart.class, RenderModelledCart::new);
+		RenderingRegistry.registerEntityRenderingHandler(EntityModelledTanker.class, RenderModelledCart::new);
 	}
 	
 	
@@ -27,6 +36,7 @@ public class ClientProxy extends CommonProxy
 	{
 		super.preInit(event);
 		ItemsInit.initModels();
+		registerRenderers();
 	}
 	
 	@Override

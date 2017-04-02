@@ -7,6 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class SoundEffects 
 {
 	public static SoundEvent whistleSound;
+	public static SoundEvent heavyBreath;
 	
 	private static SoundEvent registerSound(String soundName) 
 	{
@@ -17,6 +18,7 @@ public class SoundEffects
 	public static void init() 
 	{
 		whistleSound = registerSound("whistle");
+		heavyBreath = registerSound("heavyBreath");
 
 	}
 

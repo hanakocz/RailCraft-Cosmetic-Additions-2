@@ -3,7 +3,10 @@ package cz.hanakocz.rccosmetic.items;
 import cz.hanakocz.rccosmetic.ClientProxy;
 import cz.hanakocz.rccosmetic.RCCosmetic;
 import cz.hanakocz.rccosmetic.SoundEffects;
+import cz.hanakocz.rccosmetic.player.Breath;
+import mods.railcraft.common.util.misc.Game;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.item.EntityEnderEye;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -32,10 +35,7 @@ public class ItemWhistle extends Item
 		this.maxStackSize = 1;
         setCreativeTab(RCCosmetic.tabRCCos);
         setUnlocalizedName(unlocalizedName);
-        setRegistryName(unlocalizedName);
-        //this.setTextureName(RCCosmetic.MODID + ":" + "whistle");
-
-		
+        setRegistryName(unlocalizedName);		
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -46,43 +46,26 @@ public class ItemWhistle extends Item
 	
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
-    {
-		
+    {		
         return EnumActionResult.FAIL;
     }
 	
-
-    /*{
-		playerIn.setItemInUse(itemStackIn, this.getMaxItemUseDuration(itemStackIn));
-		worldIn.playSoundAtEntity(playerIn, RCCosmetic.MODID + ":whistleSound", 1.0F, 1.0F);
-        return item;
-    }*/
-	
 	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
     { 
-        if (!worldIn.isRemote)
-        {
-            {
-                worldIn.playSound(playerIn, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEffects.whistleSound, SoundCategory.MASTER, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-                //worldIn.playEvent((EntityPlayer)null, 1003, new BlockPos(playerIn), 0);
-
-                if (!playerIn.capabilities.isCreativeMode)
-                {
-                    --itemStackIn.stackSize;
-                }
-
-                playerIn.addStat(StatList.getObjectUseStats(this));
-                return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
-            }
+        if (Game.isHost(worldIn))
+        {   
+        	if (Breath.whistleUsed(playerIn, 200))
+        	{
+        		worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEffects.whistleSound, SoundCategory.MASTER, 1.0F, 1.0F);
+        	}
+        	else
+        	{
+        		worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEffects.heavyBreath, SoundCategory.MASTER, 1.0F, 1.0F);
+        	}           
+            return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);           
         }
-
-        return new ActionResult(EnumActionResult.FAIL, itemStackIn);
-    
+        return new ActionResult(EnumActionResult.FAIL, itemStackIn);   
     }
 	
-	public int getMaxItemUseDuration(ItemStack p_77626_1_)
-    {
-        return 72000;
-    }
 
 }
