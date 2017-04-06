@@ -1,0 +1,24 @@
+Changelog
+---------
+
+
+
+
+
+Build 3.0.2
+- Recipes made properly, so they are available even when certain blocks aren't (railcraft tank for example, or if you disable plates) - fixes NEI crash with recipe using nonexistant block.
+- Hand signals, two variants, dispatch and stop one. Probably most of world is not using them already, but in certain railroad-centered countries those were used extensively. Maybe in future will add flag/light variants.
+-Train Dispatcher Cap, red variant of existing one. Also used extensively in certain countries.
+-Added zh_CN.lang, thanks to @TartaricAcid If you also want your language in, feel free to contact me on Github.
+
+Build 3.0.1
+- fixed crash from leftover old code
+- fixed mcmod.info
+
+Build 3.0.0
+- carts are in
+- new cart instead of old quarry cart
+- uniform is in
+- crafting recipes for uniform, carts, stuff
+- crafting components
+- whistle, cannot be spammed indefinetly
