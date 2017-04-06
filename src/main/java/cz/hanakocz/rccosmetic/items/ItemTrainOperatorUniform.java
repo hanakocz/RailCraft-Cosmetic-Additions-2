@@ -21,13 +21,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemTrainOperatorUniform extends ItemArmor
 {
 	public Item customCraftingMaterial = Item.getItemFromBlock(Blocks.WOOL);
+	public int variable = 0;
 
-	public ItemTrainOperatorUniform(String unlocalizedName, ArmorMaterial material, EntityEquipmentSlot type) 
+	public ItemTrainOperatorUniform(String unlocalizedName, ArmorMaterial material, EntityEquipmentSlot type, int var) 
 	{
 	    super(material, 0, type);
 	    setUnlocalizedName(unlocalizedName);
 	    setCreativeTab(RCCosmetic.tabRCCos);
 	    setRegistryName(unlocalizedName);
+	    this.variable = var;
 	    
 	}
 	
@@ -86,9 +88,19 @@ public class ItemTrainOperatorUniform extends ItemArmor
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
     {
+		System.out.println(stack.getUnlocalizedName());
+		String capTexture;
+		if (this.variable == 1)
+		{
+			capTexture = "rccosmetic:textures/models/armor/train_operator_red_cap.png";
+		}
+		else
+		{
+			capTexture = "rccosmetic:textures/models/armor/train_operator_cap.png";
+		}
 		switch (slot) 
 		{ 
-			case HEAD: return "rccosmetic:textures/models/armor/train_operator_cap.png"; 
+			case HEAD: return capTexture; 
 			case CHEST: 			
 			case FEET: return "rccosmetic:textures/models/armor/TrainOperator_layer_1.png";
 			case LEGS: return "rccosmetic:textures/models/armor/TrainOperator_layer_2.png";

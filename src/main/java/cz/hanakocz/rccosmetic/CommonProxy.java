@@ -20,7 +20,7 @@ public class CommonProxy
 	{
 		BlocksInit.init();
 		ItemsInit.init();
-		RecipesInit.init();
+		
 		EventsInit.init();
 		
 		//Achievements.init();
@@ -29,6 +29,7 @@ public class CommonProxy
 	public void init(FMLInitializationEvent event)
 	{
 		SoundEffects.init();
+		RecipesInit.init();
 	}
 	
 	public void postInit(FMLPostInitializationEvent event)

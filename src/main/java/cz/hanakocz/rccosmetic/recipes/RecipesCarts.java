@@ -13,52 +13,25 @@ public class RecipesCarts
 {
 	static ItemStack cartFlat = new ItemStack(ItemsInit.ModelledCartFlat);
 	static ItemStack plateIronRC = Metal.IRON.getStack(Metal.Form.PLATE);
-	static ItemStack blockTankRC = new ItemStack(EnumMachineBeta.TANK_IRON_VALVE.block(), 1, 1);	
+	static ItemStack blockTankRC = new ItemStack(EnumMachineBeta.TANK_IRON_VALVE.block(), 1, 1);
+	static Object plating;
 	
 	public static final void init()
 	{
+		if (plateIronRC != null)
+		{
+			plating = plateIronRC;
+		}
+		else
+		{
+			plating = "ingotIron";
+		}
 		ModelledCartContainer();
 		ModelledCartWood();
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartFlat, 1),
-				"xxx",
-				"y y",
-				'x', plateIronRC,
-				'y', "minecartWheelsIron"));
-		GameRegistry.addRecipe(new ItemStack(ItemsInit.ModelledCartTanker, 1),
-				"x",
-				"y",
-				'x', blockTankRC,
-				'y', cartFlat);
-		
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartOpen, 1),
-				"x",
-				"y",
-				'x', plateIronRC,
-				'y', cartFlat));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartTanker, 1),
-				" T ",
-				"xxx",
-				"y y",
-				'T', blockTankRC,
-				'x', plateIronRC,
-				'y', "minecartWheelsIron"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartContainer, 1),
-				" x ",
-				"yyy",
-				"z z",
-				'x', "chestWood",
-				'y', plateIronRC,
-				'z', "minecartWheelsIron"));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartOpen, 1),
-				" y ",
-				"yyy",
-				"z z",
-				'y', plateIronRC,
-				'z', "minecartWheelsIron"));
-		
-		
+		ModelledCartFlat();
+		ModelledCartTanker();
+		ModelledCartOpen();
+	
 	}
 
 	private static void ModelledCartContainer() 
@@ -74,7 +47,7 @@ public class RecipesCarts
 				"yyy",
 				"z z",
 				'x', "chestWood",
-				'y', plateIronRC,
+				'y', plating,
 				'z', "minecartWheelsIron"));
 	}
 	
@@ -84,16 +57,68 @@ public class RecipesCarts
 				"x x",
 				" y ",
 				'x', "stickIronSmallDouble",
-				'y', cartFlat));
-
+				'y', cartFlat));		
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartWood, 1),
 				"x x",
 				"yyy",
 				"z z",
 				'x', "stickIronSmallDouble",
-				'y', plateIronRC,
-				'z', "minecartWheelsIron"));		
+				'y', plating,
+				'z', "minecartWheelsIron"));				
 	}
 	
+	private static void ModelledCartFlat()
+	{
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartFlat, 1),
+				"xxx",
+				"y y",
+				'x', plating,
+				'y', "minecartWheelsIron"));		
+	}
+	
+	private static void ModelledCartTanker()
+	{
+		if(EnumMachineBeta.TANK_IRON_VALVE.isAvailable())
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartTanker, 1),		
+				"x",
+				"y",
+				'x', blockTankRC,
+				'y', cartFlat));
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartTanker, 1),
+					" T ",
+					"xxx",
+					"y y",
+					'T', blockTankRC,
+					'x', plating,
+					'y', "minecartWheelsIron"));		
+		}
+		else
+		{
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartTanker, 1),		
+					"xxx",
+					"xyx",
+					"xxx",
+					'x', "blockGlass",
+					'y', cartFlat));
+		}
+		
+	}
+	
+	private static void ModelledCartOpen()
+	{
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartOpen, 1),
+				"x",
+				"y",
+				'x', plating,
+				'y', cartFlat));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartOpen, 1),
+				" y ",
+				"yyy",
+				"z z",
+				'y', plating,
+				'z', "minecartWheelsIron"));
+		
+	}
 
 }

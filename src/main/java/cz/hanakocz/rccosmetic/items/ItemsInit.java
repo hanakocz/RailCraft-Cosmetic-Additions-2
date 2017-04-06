@@ -4,7 +4,9 @@ import cz.hanakocz.rccosmetic.ClientProxy;
 import cz.hanakocz.rccosmetic.RCCosmetic;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
+import mods.railcraft.common.items.RailcraftItems;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -20,6 +22,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public final class ItemsInit 
 {
 	public static ItemArmor TrainOperatorCap;
+	public static ItemArmor TrainOperatorRedCap;
 	public static ItemArmor TrainOperatorChest;
 	public static ItemArmor TrainOperatorLegs;
 	public static ItemArmor TrainOperatorBoots;
@@ -27,6 +30,8 @@ public final class ItemsInit
 	public static Item Whistle;
 	public static Item Wheels;
 	public static Item DoubleRodIron;
+	public static Item HandDepartSignal;
+	public static Item HandStopSignal;
 	
 	//Entity Items (Modelled Carts)
 	public static ItemCart ModelledCartOpen;
@@ -41,10 +46,11 @@ public final class ItemsInit
 	
 	public static final void init()
 	{
-		TrainOperatorCap = new ItemTrainOperatorUniform("train_operator_cap", WOOL, EntityEquipmentSlot.HEAD);
-		TrainOperatorChest = new ItemTrainOperatorUniform("train_operator_chest", WOOL, EntityEquipmentSlot.CHEST);
-		TrainOperatorLegs = new ItemTrainOperatorUniform("train_operator_legs", WOOL, EntityEquipmentSlot.LEGS);
-		TrainOperatorBoots = new ItemTrainOperatorUniform("train_operator_boots", WOOL, EntityEquipmentSlot.FEET);
+		TrainOperatorCap = new ItemTrainOperatorUniform("train_operator_cap", WOOL, EntityEquipmentSlot.HEAD, 0);
+		TrainOperatorRedCap = new ItemTrainOperatorUniform("train_operator_red_cap", WOOL, EntityEquipmentSlot.HEAD, 1);
+		TrainOperatorChest = new ItemTrainOperatorUniform("train_operator_chest", WOOL, EntityEquipmentSlot.CHEST, 0);
+		TrainOperatorLegs = new ItemTrainOperatorUniform("train_operator_legs", WOOL, EntityEquipmentSlot.LEGS, 0);
+		TrainOperatorBoots = new ItemTrainOperatorUniform("train_operator_boots", WOOL, EntityEquipmentSlot.FEET, 0);
 		ModelledCartOpen = new ItemCart("cart.modelled.open", 0);
 		ModelledCartTanker = new ItemCart("cart.modelled.tanker", 1);
 		ModelledCartWood = new ItemCart("cart.modelled.wood", 2);
@@ -56,6 +62,9 @@ public final class ItemsInit
 		Whistle = new ItemWhistle("whistle");
 		Wheels = new ItemBase("wheels", 16);
 		DoubleRodIron = new ItemBase("double_rod_iron", 64);
+		HandDepartSignal = new ItemHandSignal("handdepartsignal", 1);
+		HandStopSignal = new ItemHandSignal("handstopsignal", 1);
+		
 		
 		
 		//Register Items With Entities
@@ -71,16 +80,25 @@ public final class ItemsInit
 		//register(ModelledCartTender);
 		
 		register(TrainOperatorCap);
+		register(TrainOperatorRedCap);
 		register(TrainOperatorChest);
 		register(TrainOperatorLegs);
 		register(TrainOperatorBoots);
 		register(Whistle);
 		register(Wheels);
 		register(DoubleRodIron);
+		register(HandDepartSignal);
+		register(HandStopSignal);
 		
-		OreDictionary.registerOre("gravel", Blocks.GRAVEL);
+		
 		OreDictionary.registerOre("minecartWheelsIron", Wheels);
 		OreDictionary.registerOre("stickIronSmallDouble", DoubleRodIron);
+		OreDictionary.registerOre("craftingToolShears", Items.SHEARS);
+		if (RailcraftItems.SHEARS_STEEL.isEnabled())
+		{
+			OreDictionary.registerOre("craftingToolShears", RailcraftItems.SHEARS_STEEL.item());
+		}
+		
 		
 	}
 	
@@ -99,6 +117,7 @@ public final class ItemsInit
 	{
         ((ItemWhistle) Whistle).initModel();
         ((ItemTrainOperatorUniform) TrainOperatorCap).initModel();
+        ((ItemTrainOperatorUniform) TrainOperatorRedCap).initModel();
         ((ItemTrainOperatorUniform) TrainOperatorChest).initModel();
         ((ItemTrainOperatorUniform) TrainOperatorLegs).initModel();
         ((ItemTrainOperatorUniform) TrainOperatorBoots).initModel();
