@@ -1,0 +1,6 @@
+{
+    "parent": "rccosmetic:block/platform_full",
+    "textures": {
+        "texture": "#texture"
+    }
+}

@@ -1,0 +1,62 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "texture": "rccosmetic:blocks/platform"           
+        },
+        "uvlock": true
+    },
+    "variants": 
+    {
+        "facing": 
+        {
+            "north":    
+            {   "submodel": 
+                {   "part":
+                    {   "model": "rccosmetic:platform_basic_edge", "y":  90 
+                    }
+                }
+            },
+            "east":
+            {   "submodel": 
+                {   "part":
+                    {   "model": "rccosmetic:platform_basic_edge", "y":  180 
+                    }
+                }
+            },
+            "south":    
+            {   "submodel": 
+                {   "part":
+                    {   "model": "rccosmetic:platform_basic_edge", "y":  270 
+                    }
+                }
+            },
+            "west":
+            {   "submodel": 
+                {   "part":
+                    {   "model": "rccosmetic:platform_basic_edge", "y":  0 
+                    }
+                }
+            }
+        },
+        "top": 
+        {
+            "none": {},
+            "fence": 
+            {
+                "submodel": "rccosmetic:platform_basic_topfence"
+            },
+            "wall": 
+            {                
+                "submodel": "rccosmetic:platform_basic_topwall"                 
+            }
+        },
+        "shape": 
+        {
+            "full":  {},
+            "edge":  {},
+            "inner": {},
+            "outer": {}        
+        }
+    }
+}

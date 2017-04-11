@@ -1,6 +1,7 @@
 package cz.hanakocz.rccosmetic;
 
 import cz.hanakocz.rccosmetic.blocks.BlocksInit;
+import cz.hanakocz.rccosmetic.blocks.PlatformConnectedList;
 import cz.hanakocz.rccosmetic.events.EventsInit;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
 import cz.hanakocz.rccosmetic.recipes.RecipesInit;
@@ -22,6 +23,7 @@ public class CommonProxy
 		ItemsInit.init();
 		
 		EventsInit.init();
+		PlatformConnectedList.init();
 		
 		//Achievements.init();
 	}

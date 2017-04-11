@@ -1,5 +1,6 @@
 package cz.hanakocz.rccosmetic;
 
+import cz.hanakocz.rccosmetic.blocks.BlocksInit;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
@@ -23,19 +24,17 @@ public class ClientProxy extends CommonProxy
 	
 	@Override
 	public void registerRenderers() 
-	{
-		
-		
+	{				
 		RenderingRegistry.registerEntityRenderingHandler(EntityModelledCart.class, RenderModelledCart::new);
 		RenderingRegistry.registerEntityRenderingHandler(EntityModelledTanker.class, RenderModelledCart::new);
 	}
-	
-	
+		
 	@Override
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		super.preInit(event);
 		ItemsInit.initModels();
+		BlocksInit.initModels();
 		registerRenderers();
 	}
 	

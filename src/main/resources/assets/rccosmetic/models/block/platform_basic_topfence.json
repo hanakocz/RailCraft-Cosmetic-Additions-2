@@ -1,0 +1,6 @@
+{
+    "parent": "rccosmetic:block/platform_topfence",
+    "textures": {
+        "texture": "#texture"
+    }
+}

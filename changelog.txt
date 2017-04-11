@@ -4,12 +4,18 @@ Changelog
 
 
 
+Build 3.0.3
+- changed Creative tab Icon to new fancy one :)
+- Platform Block: as old one, but in new habit. It has 4 versions, full, edge, outer and inner corners. Can be interchanged via crafting or using RC's Spike Maul in world. Can be rotated in world via Crowbar. Planned more textures. Is 3/4 blocks high, connects to fences etc.
+- removed one forgotten system.out.println() . Sorry for that!
+- updates to chinese lang file as it grows :)
+Planned: some new carts and rest of blocks.
 
 Build 3.0.2
 - Recipes made properly, so they are available even when certain blocks aren't (railcraft tank for example, or if you disable plates) - fixes NEI crash with recipe using nonexistant block.
 - Hand signals, two variants, dispatch and stop one. Probably most of world is not using them already, but in certain railroad-centered countries those were used extensively. Maybe in future will add flag/light variants.
--Train Dispatcher Cap, red variant of existing one. Also used extensively in certain countries.
--Added zh_CN.lang, thanks to @TartaricAcid If you also want your language in, feel free to contact me on Github.
+- Train Dispatcher Cap, red variant of existing one. Also used extensively in certain countries.
+- Added zh_CN.lang, thanks to @TartaricAcid If you also want your language in, feel free to contact me on Github.
 
 Build 3.0.1
 - fixed crash from leftover old code

@@ -88,7 +88,6 @@ public class ItemTrainOperatorUniform extends ItemArmor
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
     {
-		System.out.println(stack.getUnlocalizedName());
 		String capTexture;
 		if (this.variable == 1)
 		{

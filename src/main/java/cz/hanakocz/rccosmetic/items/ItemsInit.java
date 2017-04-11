@@ -64,8 +64,7 @@ public final class ItemsInit
 		DoubleRodIron = new ItemBase("double_rod_iron", 64);
 		HandDepartSignal = new ItemHandSignal("handdepartsignal", 1);
 		HandStopSignal = new ItemHandSignal("handstopsignal", 1);
-		
-		
+				
 		
 		//Register Items With Entities
 		EntityRegistry.registerModEntity(EntityModelledTanker.class, "modelledtankcart", 0, RCCosmetic.instance, 256, 3, true);
@@ -89,16 +88,9 @@ public final class ItemsInit
 		register(DoubleRodIron);
 		register(HandDepartSignal);
 		register(HandStopSignal);
-		
-		
+				
 		OreDictionary.registerOre("minecartWheelsIron", Wheels);
-		OreDictionary.registerOre("stickIronSmallDouble", DoubleRodIron);
-		OreDictionary.registerOre("craftingToolShears", Items.SHEARS);
-		if (RailcraftItems.SHEARS_STEEL.isEnabled())
-		{
-			OreDictionary.registerOre("craftingToolShears", RailcraftItems.SHEARS_STEEL.item());
-		}
-		
+		OreDictionary.registerOre("stickIronSmallDouble", DoubleRodIron);		
 		
 	}
 	

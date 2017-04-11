@@ -1,0 +1,39 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "texture": "rccosmetic:blocks/platform"           
+        },
+        "model": "rccosmetic:platform_basic_full",
+        "uvlock": true
+    },
+    "variants": 
+    {
+        "facing": 
+        {
+            "north":    {},
+            "east":     {},
+            "south":    {},
+            "west":     {}
+        },
+        "top": 
+        {
+            "none": {},
+            "fence": 
+            {
+                "submodel": "rccosmetic:platform_basic_topfence"
+            },
+            "wall": 
+            {                
+                "submodel": "rccosmetic:platform_basic_topwall"                 
+            }
+        },
+        "shape": 
+        {
+            "full":  {},
+            "edge":  {},
+            "inner": {},
+            "outer": {}        
+        }
+    }
+}

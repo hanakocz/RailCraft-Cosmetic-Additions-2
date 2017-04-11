@@ -7,5 +7,6 @@ public class RecipesInit
 	{
 		RecipesItems.init();
 		RecipesCarts.init();
+		RecipesBlocks.init();
 	}
 }

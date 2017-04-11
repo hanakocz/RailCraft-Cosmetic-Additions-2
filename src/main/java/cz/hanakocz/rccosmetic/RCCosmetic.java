@@ -1,6 +1,7 @@
 package cz.hanakocz.rccosmetic;
 
 import cz.hanakocz.rccosmetic.blocks.BlocksInit;
+import cz.hanakocz.rccosmetic.items.ItemsInit;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RCCosmetic
 {
     public static final String MODID = "rccosmetic";
-    public static final String VERSION = "3.0.2";
+    public static final String VERSION = "3.0.3";
     public static final String NAME = "Railcraft Cosmetic Additions";
     
     public static CreativeTabs tabRCCos= new CreativeTabs("tabRCCos") 
@@ -29,7 +30,7 @@ public class RCCosmetic
 	    @SideOnly(Side.CLIENT)
 	    public Item getTabIconItem() 
 	    {
-	        return Item.getItemFromBlock(Blocks.ACTIVATOR_RAIL);
+	        return ItemsInit.TrainOperatorRedCap;
 	    }
 	};
 	
@@ -43,23 +44,19 @@ public class RCCosmetic
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-    	proxy.preInit(event);
-    	
-    	
+    	proxy.preInit(event);   	   	
     }
     
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	proxy.init(event);
-		
+    	proxy.init(event);		
     }
     
     @EventHandler
     public void postInit(FMLPostInitializationEvent event)
     {
-    	proxy.postInit(event);
-    	
+    	proxy.postInit(event);   	
     }
 
 }
