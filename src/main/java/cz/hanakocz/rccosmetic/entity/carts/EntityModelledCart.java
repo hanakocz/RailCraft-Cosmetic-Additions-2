@@ -10,12 +10,14 @@ import com.mojang.authlib.GameProfile;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
 import mods.railcraft.common.carts.CartTools;
 import mods.railcraft.common.gui.containers.FactoryContainer;
+import mods.railcraft.common.plugins.forge.LocalizationPlugin;
 import mods.railcraft.common.util.inventory.InvTools;
 import mods.railcraft.common.util.misc.Game;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.item.EntityMinecartContainer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -43,8 +45,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class EntityModelledCart extends EntityMinecartContainer implements ISidedInventory/*, ILinkableCart*/
 {	
-    private String entityName;
-    private int cart;
+    protected int cart;
     public int colour = 0;
     private static final int[] SLOTS1 = InvTools.buildSlotArray(0, 1);
     private static final int[] SLOTS9 = InvTools.buildSlotArray(0, 9);
@@ -69,7 +70,6 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         	this.setColor(color);
         	this.colour = color;
         }
-        
     }
     
     public int countItems()
@@ -105,8 +105,8 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
                 
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops"))
         {
-            ItemStack itemstack = new ItemStack(Items.MINECART, 1);
-            if (this.getName() != null)
+            ItemStack itemstack = getCartItem();
+            if (this.hasCustomName())
             {
                 itemstack.setStackDisplayName(this.getName());
             }
@@ -131,6 +131,8 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
 	        	return new ItemStack(ItemsInit.ModelledCartContainer);
 	        case(6):
 	        	return new ItemStack(ItemsInit.ModelledCartTender);
+	        case(7):
+	        	return new ItemStack(ItemsInit.ModelledCartCage);
 	        default:
 	        	return new ItemStack(ItemsInit.ModelledCartFlat);
         }   	
@@ -165,7 +167,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         }
         if (tag.hasKey("CustomName", 8) && tag.getString("CustomName").length() > 0)
         {
-            this.entityName = tag.getString("CustomName");
+            this.setCustomNameTag(tag.getString("CustomName"));
         }                     
     }
     
@@ -181,9 +183,9 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
             tag.setInteger("DisplayData", iblockstate.getBlock().getMetaFromState(iblockstate));
             tag.setInteger("DisplayOffset", this.getDisplayTileOffset());         
         }
-        if (this.entityName != null && this.entityName.length() > 0)
+        if (hasCustomName())
         {
-            tag.setString("CustomName", this.entityName);
+            tag.setString("CustomName", getCustomNameTag());
         }        
         int type = getCustomCartType();
         tag.setInteger("CustomType", type);
@@ -191,6 +193,12 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         {
         	tag.setInteger("Colour", getColor());
         }
+    }
+    
+    @Nonnull
+    @Override
+    public String getName() {
+        return hasCustomName() ? getCustomNameTag() : I18n.format("entity.rccosmetic.cart."+ cart +".name");
     }
     
     public int getColor() 
@@ -214,6 +222,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
 	        	return 9;
 	        case(3):
 	        case(4):
+	        case(7):
 	        	return 0;
 	        case(5):
 	        	return 36;
@@ -281,6 +290,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         }
         case(3):
         case(4):
+        case(7):
         {
         	return false;
         }
@@ -309,6 +319,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         		return SLOTS9;
         	case(3):
         	case(4):
+        	case(7):
         		return SLOTS1;
         	case(5):
         		return SLOTS36;
@@ -332,7 +343,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
 	@Override
 	public String getGuiID() 
 	{
-		return this.hasCustomName() ? this.entityName :"entity.rccosmetic.cart." + Integer.toString(this.getCustomCartType()) + ".name";	    
+		return this.hasCustomName() ? getCustomNameTag() : getName();	    
 	}
 	
 	public boolean isWood(ItemStack stack)

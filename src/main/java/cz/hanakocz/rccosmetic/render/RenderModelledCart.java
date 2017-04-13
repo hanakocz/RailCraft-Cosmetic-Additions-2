@@ -6,11 +6,13 @@ import cz.hanakocz.rccosmetic.RCCosmetic;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartBase;
+import cz.hanakocz.rccosmetic.models.carts.ModelCartCage;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartContainer;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartFlat;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartOpen;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartPanzer;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartTanker;
+import cz.hanakocz.rccosmetic.models.carts.ModelCartTender;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartWood;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -72,7 +74,8 @@ public class RenderModelledCart extends Render<EntityMinecart>
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.empty.png"),
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.panzer.png"),
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.container.0.png"),
-    		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.tender.png")
+    		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.tender.png"),
+    		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.cage.png")
     	};    
     private ModelCartBase modelMinecart[] = 
     	{	new ModelCartOpen(),
@@ -80,8 +83,9 @@ public class RenderModelledCart extends Render<EntityMinecart>
     		new ModelCartWood(),
     		new ModelCartFlat(), 
     		new ModelCartPanzer(), 
-    		new ModelCartContainer()/*,
-    		new ModelCartTender()*/
+    		new ModelCartContainer(),
+    		new ModelCartTender(),
+    		new ModelCartCage()
     	};
 
 

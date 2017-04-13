@@ -1,11 +1,13 @@
 package cz.hanakocz.rccosmetic.entity.carts;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import cz.hanakocz.rccosmetic.items.ItemsInit;
 import mods.railcraft.common.carts.EntityCartTank;
 import mods.railcraft.common.carts.IRailcraftCartContainer;
 import mods.railcraft.common.carts.RailcraftCarts;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.ItemStack;
@@ -33,7 +35,6 @@ public class EntityModelledTanker extends EntityCartTank
         this.setCustomCartType(cartType);
         this.setColor(color);
         this.colour = color;
-        this.setCustomNameTag("entity.rccosmetic.cart.1.name");
     }
 
     @Override
@@ -92,4 +93,9 @@ public class EntityModelledTanker extends EntityCartTank
     	tag.setInteger("Colour", getColor());
     }
     
+    @Nonnull
+    @Override
+    public String getName() {
+        return hasCustomName() ? getCustomNameTag() : I18n.format("entity.rccosmetic.cart.1.name");
+    }
 }

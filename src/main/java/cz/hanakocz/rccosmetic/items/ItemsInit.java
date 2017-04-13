@@ -2,6 +2,7 @@ package cz.hanakocz.rccosmetic.items;
 
 import cz.hanakocz.rccosmetic.ClientProxy;
 import cz.hanakocz.rccosmetic.RCCosmetic;
+import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCarriage;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import mods.railcraft.common.items.RailcraftItems;
@@ -41,6 +42,7 @@ public final class ItemsInit
 	public static ItemCart ModelledCartPanzer;
 	public static ItemCart ModelledCartContainer;
 	public static ItemCart ModelledCartTender;
+	public static ItemCart ModelledCartCage;
 	
 	public static ArmorMaterial WOOL = EnumHelper.addArmorMaterial("WOOL_ARMOR", "train_operator", 5, new int[] {1, 3, 2, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 	
@@ -58,6 +60,7 @@ public final class ItemsInit
 		ModelledCartPanzer = new ItemCart("cart.modelled.panzer", 4);
 		ModelledCartContainer = new ItemCart("cart.modelled.container", 5);
 		ModelledCartTender = new ItemCart("cart.modelled.tender", 6);
+		ModelledCartCage = new ItemCart("cart.modelled.cage", 7);
 		
 		Whistle = new ItemWhistle("whistle");
 		Wheels = new ItemBase("wheels", 16);
@@ -69,6 +72,7 @@ public final class ItemsInit
 		//Register Items With Entities
 		EntityRegistry.registerModEntity(EntityModelledTanker.class, "modelledtankcart", 0, RCCosmetic.instance, 256, 3, true);
 		EntityRegistry.registerModEntity(EntityModelledCart.class, "modelledchestcart", 1, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityModelledCarriage.class, "modelledcarriagecart", 2, RCCosmetic.instance, 256, 3, true);
 		
 		register(ModelledCartOpen);
 		register(ModelledCartTanker);
@@ -77,6 +81,7 @@ public final class ItemsInit
 		register(ModelledCartPanzer);
 		register(ModelledCartContainer);
 		//register(ModelledCartTender);
+		register(ModelledCartCage);
 		
 		register(TrainOperatorCap);
 		register(TrainOperatorRedCap);
@@ -120,5 +125,6 @@ public final class ItemsInit
 		ModelledCartPanzer.initModel();
 		ModelledCartContainer.initModel();
 		ModelledCartTender.initModel();
+		ModelledCartCage.initModel();
     }
 }

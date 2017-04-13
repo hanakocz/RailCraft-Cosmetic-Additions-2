@@ -4,6 +4,12 @@ Changelog
 
 
 
+Build 3.0.4
+- fixed cart names in inventories, also they now drop unnamed by default as they should
+- fixed carts not dropping themself but the vanilla cart
+- new Cage Cart. Usable to transport animals and so. Player cannot directly ride it, but can get inside, if used boarding track. Preparations for more entity-carrying carts in future.
+- Grass Track and CobWeb tracks are back in. Both are right-click shearable back into regular track, with little chance to ruin the track into abandoned one. Do your Maintenance!
+
 Build 3.0.3
 - changed Creative tab Icon to new fancy one :)
 - Platform Block: as old one, but in new habit. It has 4 versions, full, edge, outer and inner corners. Can be interchanged via crafting or using RC's Spike Maul in world. Can be rotated in world via Crowbar. Planned more textures. Is 3/4 blocks high, connects to fences etc.

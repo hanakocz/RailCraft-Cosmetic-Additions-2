@@ -5,6 +5,7 @@ import java.util.Random;
 import com.mojang.authlib.GameProfile;
 
 import cz.hanakocz.rccosmetic.RCCosmetic;
+import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCarriage;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import mods.railcraft.api.carts.CartToolsAPI;
@@ -65,7 +66,7 @@ public class ItemCart extends Item implements IMinecartItem
         		case(3):
         		case(4):
         		case(5):
-        		case(6):
+        		case(6):        		
         		{
         			pos.offset(EnumFacing.EAST, (int) 0.5);
         			int rand = new Random().nextInt(9);
@@ -92,6 +93,21 @@ public class ItemCart extends Item implements IMinecartItem
                     --item.stackSize;
                     return EnumActionResult.SUCCESS;
         		}
+        		case(7):
+        		{
+        			pos.offset(EnumFacing.EAST, (int) 0.5);
+        			int rand = new Random().nextInt(9);
+        			EntityModelledCarriage entityminecart = new EntityModelledCarriage(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) {
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}	
         		default:
         		{
         			return EnumActionResult.FAIL;
@@ -122,7 +138,7 @@ public class ItemCart extends Item implements IMinecartItem
 	        		case(3):
 	        		case(4):
 	        		case(5):
-	        		case(6):
+	        		case(6):	        		
 	        		{
 	        			int rand = new Random().nextInt(9);
 	        			EntityModelledCart cart = new EntityModelledCart(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
@@ -144,6 +160,18 @@ public class ItemCart extends Item implements IMinecartItem
 	                    }
 	        			CartToolsAPI.setCartOwner(cart, owner);
 	                    if (world.spawnEntityInWorld(cart))	                       
+	                    	return cart;
+	        		}
+	        		case(7):
+	        		{
+	        			int rand = new Random().nextInt(9);
+	        			EntityModelledCarriage cart = new EntityModelledCarriage(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
 	                    	return cart;
 	        		}
 	        		default:

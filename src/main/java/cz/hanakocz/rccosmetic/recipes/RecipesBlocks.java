@@ -11,11 +11,15 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 public class RecipesBlocks 
 {
 	static ItemStack stone_slab = new ItemStack(Blocks.STONE_SLAB);
+	static ItemStack basic_track = new ItemStack(Blocks.RAIL);
+	static ItemStack grass = new ItemStack(Blocks.TALLGRASS, 1, 1);
+	static ItemStack cobweb = new ItemStack(Blocks.WEB, 1);
 	
 	public static final void init()
 	{
 		PlatformCycle();
 		Platform();
+		Tracks();
 		
 	}
 	
@@ -33,5 +37,19 @@ public class RecipesBlocks
 				"xxx",
 				"xxx",
 				'x', stone_slab));
+	}
+	
+	private static void Tracks()
+	{
+		GameRegistry.addRecipe(new ItemStack(BlocksInit.TrackGrass),
+				" G ",
+				" T ",
+				'T', basic_track,
+				'G', grass);
+		GameRegistry.addRecipe(new ItemStack(BlocksInit.TrackCobweb),
+				" C ",
+				" T ",
+				'T', basic_track,
+				'C', cobweb);
 	}
 }

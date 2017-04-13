@@ -31,6 +31,7 @@ public class RecipesCarts
 		ModelledCartFlat();
 		ModelledCartTanker();
 		ModelledCartOpen();
+		ModelledCartCage();
 	
 	}
 
@@ -119,6 +120,22 @@ public class RecipesCarts
 				'y', plating,
 				'z', "minecartWheelsIron"));
 		
+	}
+	
+	private static void ModelledCartCage()
+	{
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartCage, 1), 
+				"xxx",
+				" y ",
+				'x', "stickIronSmallDouble",
+				'y', cartFlat));		
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartCage, 1),
+				"xxx",
+				"yyy",
+				"z z",
+				'x', "stickIronSmallDouble",
+				'y', plating,
+				'z', "minecartWheelsIron"));				
 	}
 
 }

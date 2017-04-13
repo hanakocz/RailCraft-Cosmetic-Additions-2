@@ -18,7 +18,7 @@
                     {   "model": "rail_flat"
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -28,7 +28,7 @@
                     {   "model": "rccosmetic:track_curved", "y": 180
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -38,7 +38,7 @@
                     {   "model": "rccosmetic:track_curved", "y": 270
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -48,7 +48,7 @@
                     {   "model": "rail_flat", "y": 90
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -58,7 +58,7 @@
                     {   "model": "rccosmetic:track_curved"
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -68,7 +68,7 @@
                     {   "model": "rccosmetic:track_curved", "y": 90
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -78,7 +78,7 @@
                     {   "model": "rail_raised_ne", "y": 90
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -88,7 +88,7 @@
                     {   "model": "rail_raised_sw", "y": 90
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -98,7 +98,7 @@
                     {   "model": "rail_raised_ne"
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             },
@@ -108,7 +108,7 @@
                     {   "model": "rail_raised_sw"
                     },
                     "grass":
-                    {   "model": "tall_grass"
+                    {   "model": "web"
                     }
                 }
             }
