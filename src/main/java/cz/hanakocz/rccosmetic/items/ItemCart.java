@@ -5,9 +5,18 @@ import java.util.Random;
 import com.mojang.authlib.GameProfile;
 
 import cz.hanakocz.rccosmetic.RCCosmetic;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartCage;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartContainer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartFlat;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartOpen;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartPanzer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartTanker;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartTender;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartWood;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCarriage;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
+import cz.hanakocz.rccosmetic.player.PlayerTools;
 import mods.railcraft.api.carts.CartToolsAPI;
 import mods.railcraft.api.core.items.IMinecartItem;
 import mods.railcraft.common.blocks.tracks.TrackTools;
@@ -57,53 +66,121 @@ public class ItemCart extends Item implements IMinecartItem
     	if (!TrackTools.isRailBlockAt(world, pos))
             return EnumActionResult.FAIL;
        
-        if (Game.isHost(world))
-        {            	
+        if (Game.isHost(world) && !CartToolsAPI.isMinecartAt(world, pos, 0))
+        {          
+        	pos.offset(EnumFacing.EAST, (int) 0.5);
+        	int rand = new Random().nextInt(9);
         	switch(type)
         	{
         		case(0):
-        		case(2):
-        		case(3):
-        		case(4):
-        		case(5):
-        		case(6):        		
         		{
-        			pos.offset(EnumFacing.EAST, (int) 0.5);
-        			int rand = new Random().nextInt(9);
-        			EntityModelledCart entityminecart = new EntityModelledCart(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+        			EntityCartOpen entityminecart = new EntityCartOpen(world, pos, rand);                        
         			if (item.hasDisplayName())
                     {
                         entityminecart.setCustomNameTag(item.getDisplayName());
                     }
-                    world.spawnEntityInWorld(entityminecart);
-        			if (entityminecart != null) {
+                    world.spawnEntityInWorld(entityminecart);                    
+                    if (entityminecart != null) 
+        			{
                         item.stackSize--;
                     }
         			return EnumActionResult.SUCCESS;
         		}
         		case(1):
         		{
-        			int rand = new Random().nextInt(9);
-        			EntityModelledTanker entitytankminecart = new EntityModelledTanker(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
-        			if (item.hasDisplayName())
-                    {
-                        entitytankminecart.setCustomNameTag(item.getDisplayName());
-                    }
-                    world.spawnEntityInWorld(entitytankminecart);
-                    --item.stackSize;
-                    return EnumActionResult.SUCCESS;
-        		}
-        		case(7):
-        		{
-        			pos.offset(EnumFacing.EAST, (int) 0.5);
-        			int rand = new Random().nextInt(9);
-        			EntityModelledCarriage entityminecart = new EntityModelledCarriage(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+        			EntityCartTanker entityminecart = new EntityCartTanker(world, pos, rand);                        
         			if (item.hasDisplayName())
                     {
                         entityminecart.setCustomNameTag(item.getDisplayName());
                     }
                     world.spawnEntityInWorld(entityminecart);
-        			if (entityminecart != null) {
+                    if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+                    return EnumActionResult.SUCCESS;
+        		}
+        		case(2):
+        		{        		        			
+        			EntityCartWood entityminecart = new EntityCartWood(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}
+        		case(3):
+        		{        		        			
+        			EntityCartFlat entityminecart = new EntityCartFlat(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}
+        		case(4):
+        		{        		        			
+        			EntityCartPanzer entityminecart = new EntityCartPanzer(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}       			
+        		case(5):
+        		{        		        			
+        			EntityCartContainer entityminecart = new EntityCartContainer(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}
+        		case(6):        		
+        		{        		        			
+        			EntityCartTender entityminecart = new EntityCartTender(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}
+        		
+        		case(7):
+        		{
+        			EntityCartCage entityminecart = new EntityCartCage(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
                         item.stackSize--;
                     }
         			return EnumActionResult.SUCCESS;
@@ -131,17 +208,12 @@ public class ItemCart extends Item implements IMinecartItem
 		{
 			if (!CartToolsAPI.isMinecartAt(world, pos, 0))
 			{
+				int rand = new Random().nextInt(9);
 				switch(type)
 	            {
 	        		case(0):
-	        		case(2):
-	        		case(3):
-	        		case(4):
-	        		case(5):
-	        		case(6):	        		
 	        		{
-	        			int rand = new Random().nextInt(9);
-	        			EntityModelledCart cart = new EntityModelledCart(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+	        			EntityCartOpen cart = new EntityCartOpen(world, pos, rand);                        
 	        			if (item.hasDisplayName())
 	                    {
 	                        cart.setCustomNameTag(item.getDisplayName());
@@ -152,8 +224,7 @@ public class ItemCart extends Item implements IMinecartItem
 	        		}
 	        		case(1):
 	        		{
-	        			int rand = new Random().nextInt(9);
-	        			EntityModelledTanker cart = new EntityModelledTanker(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+	        			EntityCartTanker cart = new EntityCartTanker(world, pos, rand);                        
 	        			if (item.hasDisplayName())
 	                    {
 	                        cart.setCustomNameTag(item.getDisplayName());
@@ -162,10 +233,64 @@ public class ItemCart extends Item implements IMinecartItem
 	                    if (world.spawnEntityInWorld(cart))	                       
 	                    	return cart;
 	        		}
+	        		case(2):
+	        		{
+	        			EntityCartWood cart = new EntityCartWood(world, pos, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
+	                    	return cart;
+	        		}
+	        		case(3):
+	        		{
+	        			EntityCartFlat cart = new EntityCartFlat(world, pos, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
+	                    	return cart;
+	        		}
+	        		case(4):
+	        		{
+	        			EntityCartPanzer cart = new EntityCartPanzer(world, pos, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
+	                    	return cart;
+	        		}
+	        		case(5):
+	        		{
+	        			EntityCartContainer cart = new EntityCartContainer(world, pos, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
+	                    	return cart;
+	        		}
+	        		case(6):	        		
+	        		{
+	        			EntityCartTender cart = new EntityCartTender(world, pos, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
+	                    	return cart;
+	        		}	        		
 	        		case(7):
 	        		{
-	        			int rand = new Random().nextInt(9);
-	        			EntityModelledCarriage cart = new EntityModelledCarriage(world, (double)((float)pos.getX() + 0.5F), (double)((float)pos.getY() + 0.5F), (double)((float)pos.getZ() + 0.5F), type, rand);                        
+	        			EntityCartCage cart = new EntityCartCage(world, pos, rand);                        
 	        			if (item.hasDisplayName())
 	                    {
 	                        cart.setCustomNameTag(item.getDisplayName());

@@ -193,13 +193,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         {
         	tag.setInteger("Colour", getColor());
         }
-    }
-    
-    @Nonnull
-    @Override
-    public String getName() {
-        return hasCustomName() ? getCustomNameTag() : I18n.format("entity.rccosmetic.cart."+ cart +".name");
-    }
+    }  
     
     public int getColor() 
     {

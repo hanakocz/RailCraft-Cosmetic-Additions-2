@@ -2,7 +2,10 @@ Changelog
 ---------
 
 
-
+Build 3.0.5
+- fixed carts not opening due to usage of clientside function. Affected servers.
+- REHAUL OF ENTITIES for Carts, that means all carts get killed on world load after this update! BACKUP YOUR WORLDS, and possibly put all carts into inventory before updating! And yes, it was necessary.
+- fixed crash when clicking on platform blocks by updating minimum RC version to apropriate one. (yes RC has update, you need at least 10.1.0 version!)
 
 Build 3.0.4
 - fixed cart names in inventories, also they now drop unnamed by default as they should

@@ -2,6 +2,14 @@ package cz.hanakocz.rccosmetic.items;
 
 import cz.hanakocz.rccosmetic.ClientProxy;
 import cz.hanakocz.rccosmetic.RCCosmetic;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartCage;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartContainer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartFlat;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartOpen;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartPanzer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartTanker;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartTender;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartWood;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCarriage;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
@@ -70,9 +78,14 @@ public final class ItemsInit
 				
 		
 		//Register Items With Entities
-		EntityRegistry.registerModEntity(EntityModelledTanker.class, "modelledtankcart", 0, RCCosmetic.instance, 256, 3, true);
-		EntityRegistry.registerModEntity(EntityModelledCart.class, "modelledchestcart", 1, RCCosmetic.instance, 256, 3, true);
-		EntityRegistry.registerModEntity(EntityModelledCarriage.class, "modelledcarriagecart", 2, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartOpen.class, "cart.0", 0, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartTanker.class, "cart.1", 1, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartWood.class, "cart.2", 2, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartFlat.class, "cart.3", 3, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartPanzer.class, "cart.4", 4, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartContainer.class, "cart.5", 5, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartTender.class, "cart.6", 6, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartCage.class, "cart.7", 7, RCCosmetic.instance, 256, 3, true);
 		
 		register(ModelledCartOpen);
 		register(ModelledCartTanker);

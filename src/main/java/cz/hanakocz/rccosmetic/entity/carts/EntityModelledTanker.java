@@ -92,10 +92,4 @@ public class EntityModelledTanker extends EntityCartTank
     	super.writeEntityToNBT(tag);
     	tag.setInteger("Colour", getColor());
     }
-    
-    @Nonnull
-    @Override
-    public String getName() {
-        return hasCustomName() ? getCustomNameTag() : I18n.format("entity.rccosmetic.cart.1.name");
-    }
 }

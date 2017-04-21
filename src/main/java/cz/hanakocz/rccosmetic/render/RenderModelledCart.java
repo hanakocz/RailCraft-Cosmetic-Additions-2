@@ -3,6 +3,9 @@ package cz.hanakocz.rccosmetic.render;
 import org.lwjgl.opengl.GL11;
 
 import cz.hanakocz.rccosmetic.RCCosmetic;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartContainer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartOpen;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartTanker;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartBase;
@@ -225,17 +228,17 @@ public class RenderModelledCart extends Render<EntityMinecart>
 
     protected ResourceLocation getEntityTexture(EntityMinecart entity)
     {
-        if (getCartType(entity) == 1 && entity instanceof EntityModelledTanker)
+        if (getCartType(entity) == 1 && entity instanceof EntityCartTanker)
         {
-        	return minecartTankTextures[((EntityModelledTanker) entity).getColor()];
+        	return minecartTankTextures[((EntityCartTanker) entity).getColor()];
         }
-        else if (getCartType(entity) == 0 && entity instanceof EntityModelledCart)
+        else if (getCartType(entity) == 0 && entity instanceof EntityCartOpen)
         {
-        	return minecartOpenTextures[((EntityModelledCart) entity).getColor()];
+        	return minecartOpenTextures[((EntityCartOpen) entity).getColor()];
         }
-        else if (getCartType(entity) == 5 && entity instanceof EntityModelledCart)
+        else if (getCartType(entity) == 5 && entity instanceof EntityCartContainer)
         {
-        	return minecartContainerTextures[((EntityModelledCart) entity).getColor()];
+        	return minecartContainerTextures[((EntityCartContainer) entity).getColor()];
         }
     	return minecartTextures[getCartType(entity)];
     }
