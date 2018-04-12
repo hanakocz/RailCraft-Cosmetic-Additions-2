@@ -8,5 +8,15 @@ public class EventsInit
 	{
 		MinecraftForge.EVENT_BUS.register(new PlayerEventListener());
 	}
+	
+	public static void initClient()
+	{
+		MinecraftForge.EVENT_BUS.register(new PlayerEventClientListener());
+	}
+	
+	public static void initTAN()
+	{
+		MinecraftForge.EVENT_BUS.register(new TemperatureChangerCart());
+	}
 
 }

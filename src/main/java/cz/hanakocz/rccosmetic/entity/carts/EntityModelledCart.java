@@ -4,14 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.mojang.authlib.GameProfile;
 
+import cz.hanakocz.rccosmetic.inventory.ContainerCartCouch;
+import cz.hanakocz.rccosmetic.inventory.ContainerLoose;
+import cz.hanakocz.rccosmetic.inventory.ContainerWood;
+import cz.hanakocz.rccosmetic.inventory.RCCEnumGui;
+import cz.hanakocz.rccosmetic.inventory.RCCGuiHandler;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
 import mods.railcraft.common.carts.CartTools;
+import mods.railcraft.common.carts.IRailcraftCart;
+import mods.railcraft.common.carts.IRailcraftCartContainer;
+import mods.railcraft.common.gui.EnumGui;
 import mods.railcraft.common.gui.containers.FactoryContainer;
 import mods.railcraft.common.plugins.forge.LocalizationPlugin;
 import mods.railcraft.common.util.inventory.InvTools;
+import mods.railcraft.common.util.inventory.PhantomInventory;
 import mods.railcraft.common.util.misc.Game;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -35,6 +45,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -43,11 +54,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 
-public class EntityModelledCart extends EntityMinecartContainer implements ISidedInventory/*, ILinkableCart*/
+public class EntityModelledCart extends EntityMinecartContainer implements ISidedInventory, IRailcraftCart/*, ILinkableCart*/
 {	
     protected int cart;
     public int colour = 0;
     private static final int[] SLOTS1 = InvTools.buildSlotArray(0, 1);
+    private static final int[] SLOTS2 = InvTools.buildSlotArray(0, 2);
     private static final int[] SLOTS9 = InvTools.buildSlotArray(0, 9);
     private static final int[] SLOTS36 = InvTools.buildSlotArray(0, 36);
     protected static final DataParameter<Integer> CARTTYPE = EntityDataManager.<Integer>createKey(EntityModelledCart.class, DataSerializers.VARINT);
@@ -65,7 +77,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         super(world, x, y, z);
         this.setCustomCartType(cartType);
         this.cart = cartType;
-        if (cartType == 5 || cartType == 0)
+        if (isColored(cartType))
         {
         	this.setColor(color);
         	this.colour = color;
@@ -97,23 +109,37 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
     	this.dataManager.register(CARTCOLOR, Integer.valueOf(colour));
     	this.dataManager.register(CARTITEMS, 0);
     }
-
+    
     @Override
-    public void killMinecart(DamageSource par1DamageSource) 
+    public final void killMinecart(DamageSource par1DamageSource) 
     {
-        this.setDead();
-                
-        if (this.worldObj.getGameRules().getBoolean("doEntityDrops"))
-        {
-            ItemStack itemstack = getCartItem();
-            if (this.hasCustomName())
-            {
-                itemstack.setStackDisplayName(this.getName());
-            }
-            this.entityDropItem(itemstack, 0.0F);
-        }
+        killAndDrop(this);
     }
     
+    @Override
+    public void setDead() {
+        if (Game.isClient(worldObj))
+        {
+        	for (int slot = 0; slot < getSizeInventory(); slot++) 
+        	{
+        		setInventorySlotContents(slot, null);
+            }
+        }
+        super.setDead();
+    }
+    
+    public boolean isColored(int cartType)
+    {
+    	if (cartType == 5 || cartType == 0 || cartType == 8)
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+        
     @Override
     public ItemStack getCartItem()
     {
@@ -133,6 +159,8 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
 	        	return new ItemStack(ItemsInit.ModelledCartTender);
 	        case(7):
 	        	return new ItemStack(ItemsInit.ModelledCartCage);
+	        case(8):
+	        	return new ItemStack(ItemsInit.ModelledCartCouch);
 	        default:
 	        	return new ItemStack(ItemsInit.ModelledCartFlat);
         }   	
@@ -143,7 +171,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         this.setCustomCartType(type);
         this.cart = type;
         this.dataManager.set(CARTITEMS, this.countItems());
-        if ((type == 5 || type == 0) && tag.hasKey("Colour"))
+        if (isColored(type) && tag.hasKey("Colour"))
         {
         	this.setColor(tag.getInteger("Colour"));
         }
@@ -189,7 +217,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         }        
         int type = getCustomCartType();
         tag.setInteger("CustomType", type);
-        if (type == 5 || type == 0)
+        if (isColored(type))
         {
         	tag.setInteger("Colour", getColor());
         }
@@ -212,7 +240,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         {
 	        case(0):
 	        case(2):
-	        case(6):
+	        case(6):	        	        
 	        	return 9;
 	        case(3):
 	        case(4):
@@ -220,6 +248,8 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
 	        	return 0;
 	        case(5):
 	        	return 36;
+	        case(8):
+	        	return 2;
 	        default:
 	        	return 9;
         }
@@ -282,6 +312,21 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         	}
         	return false;
         }
+        case(8):
+        {
+        	if (item != null && slot == 0)
+        	{
+        		return isCooler(item);
+        	}
+        	else if (item != null && slot == 1)
+        	{
+        		return isHeater(item);
+        	}
+        	else
+        	{
+        		return false;
+        	}
+        }
         case(3):
         case(4):
         case(7):
@@ -309,7 +354,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         {
         	case(0):
         	case(2):
-        	case(6):
+        	case(6):          	      	
         		return SLOTS9;
         	case(3):
         	case(4):
@@ -317,6 +362,8 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
         		return SLOTS1;
         	case(5):
         		return SLOTS36;
+        	case(8):
+        		return SLOTS2;
         	default:
         		return SLOTS9;
         }
@@ -340,7 +387,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
 		return this.hasCustomName() ? getCustomNameTag() : getName();	    
 	}
 	
-	public boolean isWood(ItemStack stack)
+	public static boolean isWood(ItemStack stack)
     {
     	int[] array = OreDictionary.getOreIDs(stack);
     	int size = array.length;
@@ -362,7 +409,7 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
     	return isIn;
     }
 	
-	public boolean isLoose(ItemStack stack)
+	public static boolean isLoose(ItemStack stack)
     {	
 		int[] array = OreDictionary.getOreIDs(stack);
 		List<Integer> arrayore = new ArrayList<Integer>();
@@ -388,6 +435,16 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
     	}    	
     	return isIn;
     }
+	
+	public static boolean isCooler(ItemStack item)
+	{
+		return false;
+	}
+	
+	public static boolean isHeater(ItemStack item)
+	{
+		return false;
+	}
 	
 	@Override
     @SideOnly(Side.CLIENT)
@@ -454,12 +511,44 @@ public class EntityModelledCart extends EntityMinecartContainer implements ISide
     @Override
     public Container createContainer(@Nonnull InventoryPlayer playerInventory, @Nonnull EntityPlayer playerIn) 
 	{
-        return new ContainerChest(playerInventory, this, playerIn);
+        switch(this.getCustomCartType())
+        {
+        	case(0): return new ContainerLoose(playerInventory, (EntityCartOpen) this);
+        	case(2): return new ContainerWood(playerInventory, (EntityCartWood) this);
+        	case(8): return new ContainerCartCouch(playerInventory, (EntityCartCouch) this);
+        	default: return new ContainerChest(playerInventory, this, playerIn);
+        }	
+    }
+	
+	@Override
+	public boolean processInitialInteract(EntityPlayer player, @Nullable ItemStack stack, EnumHand hand)
+    {
+        if(net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartInteractEvent(this, player, stack, hand))) return true;
+        if (!this.worldObj.isRemote)
+        {   
+        	switch(this.getCustomCartType())
+        	{
+        		case(0): RCCGuiHandler.openGui(RCCEnumGui.OPEN_CART, player, worldObj, this); break;
+        		case(2): RCCGuiHandler.openGui(RCCEnumGui.WOOD_CART, player, worldObj, this); break;
+        		case(8): RCCGuiHandler.openGui(RCCEnumGui.COUCH_CART, player, worldObj, this); break;
+        		default: player.displayGUIChest(this);
+        	}
+            
+            
+        }
+
+        return true;
     }
 
 
 	@Override
 	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public IRailcraftCartContainer getCartType() {
 		// TODO Auto-generated method stub
 		return null;
 	}

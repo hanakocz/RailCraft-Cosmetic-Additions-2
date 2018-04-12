@@ -7,6 +7,7 @@ import com.mojang.authlib.GameProfile;
 import cz.hanakocz.rccosmetic.RCCosmetic;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartCage;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartContainer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartCouch;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartFlat;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartOpen;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartPanzer;
@@ -184,7 +185,21 @@ public class ItemCart extends Item implements IMinecartItem
                         item.stackSize--;
                     }
         			return EnumActionResult.SUCCESS;
-        		}	
+        		}
+        		case(8):
+        		{
+        			EntityCartCouch entityminecart = new EntityCartCouch(world, pos, rand);                        
+        			if (item.hasDisplayName())
+                    {
+                        entityminecart.setCustomNameTag(item.getDisplayName());
+                    }
+                    world.spawnEntityInWorld(entityminecart);
+        			if (entityminecart != null) 
+        			{
+                        item.stackSize--;
+                    }
+        			return EnumActionResult.SUCCESS;
+        		}
         		default:
         		{
         			return EnumActionResult.FAIL;
@@ -291,6 +306,17 @@ public class ItemCart extends Item implements IMinecartItem
 	        		case(7):
 	        		{
 	        			EntityCartCage cart = new EntityCartCage(world, pos, rand);                        
+	        			if (item.hasDisplayName())
+	                    {
+	                        cart.setCustomNameTag(item.getDisplayName());
+	                    }
+	        			CartToolsAPI.setCartOwner(cart, owner);
+	                    if (world.spawnEntityInWorld(cart))
+	                    	return cart;
+	        		}
+	        		case(8):
+	        		{
+	        			EntityCartCouch cart = new EntityCartCouch(world, pos, rand);                        
 	        			if (item.hasDisplayName())
 	                    {
 	                        cart.setCustomNameTag(item.getDisplayName());

@@ -8,7 +8,7 @@
   "url": "https://minecraft.curseforge.com/projects/railcraft-cosmetic-additions",
   "updateUrl": "",
   "authorList": ["Hanakocz", "Kurogari"],
-  "credits": "Idea and previous versions by Cream Tea, CovertJaguar and his team for main Railcraft mod, code by Hanakocz, art by Kurogari",
+  "credits": "Idea and previous versions by Cream Tea; CovertJaguar and his team for main Railcraft mod; code by Hanakocz (and Railcraft team); art by Kurogari",
   "logoFile": "assets/rccosmetic/logo.png",
   "screenshots": [],
   "dependencies": ["railcraft"]

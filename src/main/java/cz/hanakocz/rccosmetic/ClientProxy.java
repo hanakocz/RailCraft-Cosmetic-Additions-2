@@ -3,8 +3,10 @@ package cz.hanakocz.rccosmetic;
 import cz.hanakocz.rccosmetic.blocks.BlocksInit;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
+import cz.hanakocz.rccosmetic.events.EventsInit;
 import cz.hanakocz.rccosmetic.items.ItemsInit;
 import cz.hanakocz.rccosmetic.models.ModelTrainOperatorCap;
+import cz.hanakocz.rccosmetic.network.RCCPacketHandler;
 import cz.hanakocz.rccosmetic.render.RenderModelledCart;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -36,12 +38,14 @@ public class ClientProxy extends CommonProxy
 		ItemsInit.initModels();
 		BlocksInit.initModels();
 		registerRenderers();
+		EventsInit.initClient();
 	}
 	
 	@Override
 	public void init(FMLInitializationEvent event)
 	{
 		super.init(event);
+		RCCPacketHandler.initClient();
 	}
 	
 	@Override

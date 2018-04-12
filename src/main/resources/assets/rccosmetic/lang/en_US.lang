@@ -33,6 +33,7 @@ item.cart.modelled.panzer.name=Panzer Cart
 item.cart.modelled.container.name=Container Cart
 item.cart.modelled.tender.name=Tender Cart
 item.cart.modelled.cage.name=Cage Cart
+item.cart.modelled.couch.name=Couch Cart
 itemGroup.tabRCCos=RailCraft Cosmetic Additions
 entity.rccosmetic.cart.1.name=Tanker Cart
 entity.rccosmetic.cart.0.name=Quarry Cart
@@ -42,6 +43,7 @@ entity.rccosmetic.cart.4.name=Panzer Cart
 entity.rccosmetic.cart.5.name=Container Cart
 entity.rccosmetic.cart.6.name=Tender Cart
 entity.rccosmetic.cart.7.name=Cage Cart
+entity.rccosmetic.cart.8.name=Couch Cart
 tooltip.platform.crowbar=Use Crowbar to rotate
 tooltip.platform.spikemaul=Use Spike Maul to change Shape
 

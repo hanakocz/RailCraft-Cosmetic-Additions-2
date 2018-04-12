@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import cz.hanakocz.rccosmetic.RCCosmetic;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartContainer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartCouch;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartOpen;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartTanker;
 import cz.hanakocz.rccosmetic.entity.carts.EntityModelledCart;
@@ -11,13 +12,16 @@ import cz.hanakocz.rccosmetic.entity.carts.EntityModelledTanker;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartBase;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartCage;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartContainer;
+import cz.hanakocz.rccosmetic.models.carts.ModelCartCouch;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartFlat;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartOpen;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartPanzer;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartTanker;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartTender;
 import cz.hanakocz.rccosmetic.models.carts.ModelCartWood;
+import mods.railcraft.client.render.carts.RenderCart;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -29,6 +33,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
@@ -70,6 +75,17 @@ public class RenderModelledCart extends Render<EntityMinecart>
 			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.container.7.png"),
 			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.container.8.png")
 		};
+	private static ResourceLocation minecartCouchTextures[] =
+		{	new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.0.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.1.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.2.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.3.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.4.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.5.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.6.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.7.png"),
+			new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.8.png")
+		};
     private static ResourceLocation minecartTextures[] = 
     	{	new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.open.0.png"),
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.liquid.0.png"),
@@ -78,7 +94,8 @@ public class RenderModelledCart extends Render<EntityMinecart>
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.panzer.png"),
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.container.0.png"),
     		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.tender.png"),
-    		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.cage.png")
+    		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.cage.png"),
+    		new ResourceLocation(RCCosmetic.MODID, "textures/entities/coscart.couch.0.png")
     	};    
     private ModelCartBase modelMinecart[] = 
     	{	new ModelCartOpen(),
@@ -88,7 +105,8 @@ public class RenderModelledCart extends Render<EntityMinecart>
     		new ModelCartPanzer(), 
     		new ModelCartContainer(),
     		new ModelCartTender(),
-    		new ModelCartCage()
+    		new ModelCartCage(),
+    		new ModelCartCouch()
     	};
 
 
@@ -143,13 +161,13 @@ public class RenderModelledCart extends Render<EntityMinecart>
         double d1 = entity.lastTickPosY + (entity.posY - entity.lastTickPosY) * (double)partialTicks;
         double d2 = entity.lastTickPosZ + (entity.posZ - entity.lastTickPosZ) * (double)partialTicks;
         double d3 = 0.30000001192092896D;
-        Vec3d vec3d = entity.getPos(d0, d1, d2);
+        Vec3d vec3d = getPos(entity, d0, d1, d2);
         float f3 = entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks;
 
         if (vec3d != null)
         {
-        	Vec3d vec3d1 = entity.getPosOffset(d0, d1, d2, 0.30000001192092896D);
-            Vec3d vec3d2 = entity.getPosOffset(d0, d1, d2, -0.30000001192092896D);
+        	Vec3d vec3d1 = getPosOffset(entity, d0, d1, d2, 0.30000001192092896D);
+            Vec3d vec3d2 = getPosOffset(entity, d0, d1, d2, -0.30000001192092896D);
 
             if (vec3d1 == null)
             {
@@ -240,6 +258,10 @@ public class RenderModelledCart extends Render<EntityMinecart>
         {
         	return minecartContainerTextures[((EntityCartContainer) entity).getColor()];
         }
+        else if (getCartType(entity) == 8 && entity instanceof EntityCartCouch)
+        {
+        	return minecartCouchTextures[((EntityCartCouch) entity).getColor()];
+        }
     	return minecartTextures[getCartType(entity)];
     }
 
@@ -250,4 +272,105 @@ public class RenderModelledCart extends Render<EntityMinecart>
         Minecraft.getMinecraft().getBlockRendererDispatcher().renderBlockBrightness(block, ((Entity) entity).getBrightness(partialTicks));
         GlStateManager.popMatrix();
     }
+    
+    // **********************************
+    // TODO: Fix Forge getRailDirectionRaw
+    // got from RC
+    // **********************************
+    private static final int[][][] MATRIX = {{{0, 0, -1}, {0, 0, 1}}, {{-1, 0, 0}, {1, 0, 0}}, {{-1, -1, 0}, {1, 0, 0}}, {{-1, 0, 0}, {1, -1, 0}}, {{0, 0, -1}, {0, -1, 1}}, {{0, -1, -1}, {0, 0, 1}}, {{0, 0, 1}, {1, 0, 0}}, {{0, 0, 1}, {-1, 0, 0}}, {{0, 0, -1}, {-1, 0, 0}}, {{0, 0, -1}, {1, 0, 0}}};
+
+    private Vec3d getPosOffset(EntityMinecart cart, double x, double y, double z, double offset) {
+        int i = MathHelper.floor_double(x);
+        int j = MathHelper.floor_double(y);
+        int k = MathHelper.floor_double(z);
+
+        if (BlockRailBase.isRailBlock(cart.worldObj, new BlockPos(i, j - 1, k))) {
+            --j;
+        }
+
+        IBlockState iblockstate = cart.worldObj.getBlockState(new BlockPos(i, j, k));
+
+        if (BlockRailBase.isRailBlock(iblockstate)) {
+            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = ((BlockRailBase) iblockstate.getBlock()).getRailDirection(cart.worldObj, new BlockPos(i, j, k), iblockstate, cart);
+            y = (double) j;
+
+            if (blockrailbase$enumraildirection.isAscending()) {
+                y = (double) (j + 1);
+            }
+
+            int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
+            double d0 = (double) (aint[1][0] - aint[0][0]);
+            double d1 = (double) (aint[1][2] - aint[0][2]);
+            double d2 = Math.sqrt(d0 * d0 + d1 * d1);
+            d0 = d0 / d2;
+            d1 = d1 / d2;
+            x = x + d0 * offset;
+            z = z + d1 * offset;
+
+            if (aint[0][1] != 0 && MathHelper.floor_double(x) - i == aint[0][0] && MathHelper.floor_double(z) - k == aint[0][2]) {
+                y += (double) aint[0][1];
+            } else if (aint[1][1] != 0 && MathHelper.floor_double(x) - i == aint[1][0] && MathHelper.floor_double(z) - k == aint[1][2]) {
+                y += (double) aint[1][1];
+            }
+
+            return getPos(cart, x, y, z);
+        } else {
+            return null;
+        }
+    }
+
+    public Vec3d getPos(EntityMinecart cart, double p_70489_1_, double p_70489_3_, double p_70489_5_) {
+        int i = MathHelper.floor_double(p_70489_1_);
+        int j = MathHelper.floor_double(p_70489_3_);
+        int k = MathHelper.floor_double(p_70489_5_);
+
+        if (BlockRailBase.isRailBlock(cart.worldObj, new BlockPos(i, j - 1, k))) {
+            --j;
+        }
+
+        IBlockState iblockstate = cart.worldObj.getBlockState(new BlockPos(i, j, k));
+
+        if (BlockRailBase.isRailBlock(iblockstate)) {
+            BlockRailBase.EnumRailDirection blockrailbase$enumraildirection = ((BlockRailBase) iblockstate.getBlock()).getRailDirection(cart.worldObj, new BlockPos(i, j, k), iblockstate, cart);
+            int[][] aint = MATRIX[blockrailbase$enumraildirection.getMetadata()];
+            double d0 = (double) i + 0.5D + (double) aint[0][0] * 0.5D;
+            double d1 = (double) j + 0.0625D + (double) aint[0][1] * 0.5D;
+            double d2 = (double) k + 0.5D + (double) aint[0][2] * 0.5D;
+            double d3 = (double) i + 0.5D + (double) aint[1][0] * 0.5D;
+            double d4 = (double) j + 0.0625D + (double) aint[1][1] * 0.5D;
+            double d5 = (double) k + 0.5D + (double) aint[1][2] * 0.5D;
+            double d6 = d3 - d0;
+            double d7 = (d4 - d1) * 2.0D;
+            double d8 = d5 - d2;
+            double d9;
+
+            if (d6 == 0.0D) {
+                d9 = p_70489_5_ - (double) k;
+            } else if (d8 == 0.0D) {
+                d9 = p_70489_1_ - (double) i;
+            } else {
+                double d10 = p_70489_1_ - d0;
+                double d11 = p_70489_5_ - d2;
+                d9 = (d10 * d6 + d11 * d8) * 2.0D;
+            }
+
+            p_70489_1_ = d0 + d6 * d9;
+            p_70489_3_ = d1 + d7 * d9;
+            p_70489_5_ = d2 + d8 * d9;
+
+            if (d7 < 0.0D) {
+                ++p_70489_3_;
+            }
+
+            if (d7 > 0.0D) {
+                p_70489_3_ += 0.5D;
+            }
+
+            return new Vec3d(p_70489_1_, p_70489_3_, p_70489_5_);
+        } else {
+            return null;
+        }
+    }
+
+    // ********************** END
 }

@@ -4,6 +4,7 @@ import cz.hanakocz.rccosmetic.ClientProxy;
 import cz.hanakocz.rccosmetic.RCCosmetic;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartCage;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartContainer;
+import cz.hanakocz.rccosmetic.entity.carts.EntityCartCouch;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartFlat;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartOpen;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartPanzer;
@@ -51,6 +52,7 @@ public final class ItemsInit
 	public static ItemCart ModelledCartContainer;
 	public static ItemCart ModelledCartTender;
 	public static ItemCart ModelledCartCage;
+	public static ItemCart ModelledCartCouch;
 	
 	public static ArmorMaterial WOOL = EnumHelper.addArmorMaterial("WOOL_ARMOR", "train_operator", 5, new int[] {1, 3, 2, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 	
@@ -69,6 +71,7 @@ public final class ItemsInit
 		ModelledCartContainer = new ItemCart("cart.modelled.container", 5);
 		ModelledCartTender = new ItemCart("cart.modelled.tender", 6);
 		ModelledCartCage = new ItemCart("cart.modelled.cage", 7);
+		ModelledCartCouch = new ItemCart("cart.modelled.couch", 8);
 		
 		Whistle = new ItemWhistle("whistle");
 		Wheels = new ItemBase("wheels", 16);
@@ -86,6 +89,7 @@ public final class ItemsInit
 		EntityRegistry.registerModEntity(EntityCartContainer.class, "cart.5", 5, RCCosmetic.instance, 256, 3, true);
 		EntityRegistry.registerModEntity(EntityCartTender.class, "cart.6", 6, RCCosmetic.instance, 256, 3, true);
 		EntityRegistry.registerModEntity(EntityCartCage.class, "cart.7", 7, RCCosmetic.instance, 256, 3, true);
+		EntityRegistry.registerModEntity(EntityCartCouch.class, "cart.8", 8, RCCosmetic.instance, 256, 3, true);
 		
 		register(ModelledCartOpen);
 		register(ModelledCartTanker);
@@ -95,6 +99,7 @@ public final class ItemsInit
 		register(ModelledCartContainer);
 		//register(ModelledCartTender);
 		register(ModelledCartCage);
+		register(ModelledCartCouch);
 		
 		register(TrainOperatorCap);
 		register(TrainOperatorRedCap);
@@ -139,5 +144,6 @@ public final class ItemsInit
 		ModelledCartContainer.initModel();
 		ModelledCartTender.initModel();
 		ModelledCartCage.initModel();
+		ModelledCartCouch.initModel();
     }
 }

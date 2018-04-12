@@ -1,6 +1,7 @@
 package cz.hanakocz.rccosmetic.blocks;
 
 import cz.hanakocz.rccosmetic.blocks.BlockPlatform.EnumShape;
+import cz.hanakocz.rccosmetic.blocks.tileentities.TilePortalAcceptor;
 import cz.hanakocz.rccosmetic.blocks.tracks.TrackCobWeb;
 import cz.hanakocz.rccosmetic.blocks.tracks.TrackGrass;
 import mods.railcraft.common.blocks.tracks.ItemTrack;
@@ -10,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,6 +24,7 @@ public final class BlocksInit
 	public static Block PlatformInner;
 	public static Block PlatformOuter;
 	public static Block PlatformEdge;
+	public static Block PortalAcceptor;	
 	
 	public static final void init()
 	{
@@ -30,7 +33,10 @@ public final class BlocksInit
 		PlatformFull = register(new BlockPlatform("platformfull", EnumShape.FULL));		
 		PlatformInner = register(new BlockPlatform("platforminner", EnumShape.INNER));		
 		PlatformOuter = register(new BlockPlatform("platformouter", EnumShape.OUTER));		
-		PlatformEdge = register(new BlockPlatform("platformedge", EnumShape.EDGE));				
+		PlatformEdge = register(new BlockPlatform("platformedge", EnumShape.EDGE));	
+		PortalAcceptor = register(new BlockPortalAcceptor("portalacceptor"));
+		
+		GameRegistry.registerTileEntity(TilePortalAcceptor.class, PortalAcceptor.getRegistryName().toString());
 	}
 	
 	public static final void postInit()
