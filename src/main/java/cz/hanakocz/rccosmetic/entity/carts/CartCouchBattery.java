@@ -5,11 +5,11 @@ import java.util.Random;
 import ic2.api.item.ElectricItem;
 import mods.railcraft.api.carts.CartToolsAPI;
 import mods.railcraft.api.carts.ILinkageManager;
-import mods.railcraft.common.blocks.charge.CapabilityCartBattery;
+import mods.railcraft.api.charge.CapabilitiesCharge;
 import mods.railcraft.common.blocks.charge.CartBattery;
 import mods.railcraft.common.blocks.charge.ChargeManager;
-import mods.railcraft.common.blocks.charge.ICartBattery;
-import mods.railcraft.common.blocks.charge.ICartBattery.Type;
+import mods.railcraft.api.charge.ICartBattery;
+import mods.railcraft.api.charge.ICartBattery.Type;
 import mods.railcraft.common.gui.slots.SlotEnergy;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.item.ItemStack;
@@ -147,8 +147,8 @@ public class CartCouchBattery implements ICartBattery
         else if (type == Type.USER && charge < (capacity / 2.0) && clock % DRAW_INTERVAL == 0) {
             ILinkageManager lm = CartToolsAPI.getLinkageManager(owner.worldObj);
             for (EntityMinecart cart : lm.trainIterator(owner)) {
-                if (cart.hasCapability(CapabilityCartBattery.CHARGE_CART_CAPABILITY, null)) {
-                    ICartBattery ch = cart.getCapability(CapabilityCartBattery.CHARGE_CART_CAPABILITY, null);
+                if (cart.hasCapability(CapabilitiesCharge.CART_BATTERY, null)) {
+                    ICartBattery ch = cart.getCapability(CapabilitiesCharge.CART_BATTERY, null);
                     if (ch != null && ch.getType() != Type.USER && ch.getCharge() > 0) {
                         charge += ch.removeCharge(capacity - charge);
                         break;

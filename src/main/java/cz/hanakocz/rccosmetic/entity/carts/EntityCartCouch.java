@@ -4,14 +4,12 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
-import cz.hanakocz.rccosmetic.CommonProxy;
-import cz.hanakocz.rccosmetic.events.TemperatureChangerCart;
 import cz.hanakocz.rccosmetic.inventory.RCCEnumGui;
 import cz.hanakocz.rccosmetic.inventory.RCCGuiHandler;
 import cz.hanakocz.rccosmetic.network.CouchCartPlayMusic;
 import cz.hanakocz.rccosmetic.network.RCCPacketHandler;
-import mods.railcraft.common.blocks.charge.CapabilityCartBattery;
-import mods.railcraft.common.blocks.charge.ICartBattery;
+import mods.railcraft.api.charge.CapabilitiesCharge;
+import mods.railcraft.api.charge.ICartBattery;
 import mods.railcraft.common.plugins.forge.DataManagerPlugin;
 import mods.railcraft.common.util.inventory.PhantomInventory;
 import mods.railcraft.common.util.misc.Game;
@@ -30,7 +28,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.capabilities.Capability;
 
 public class EntityCartCouch extends EntityModelledCarriage
@@ -39,7 +36,7 @@ public class EntityCartCouch extends EntityModelledCarriage
 	private static final int FUEL_PER_REQUEST = 1;
     private static final int CHARGE_USE_PER_REQUEST = CHARGE_USE_PER_TICK * FUEL_PER_REQUEST;
 	public static final double MAX_CHARGE = 2000.0;
-	private final CartCouchBattery cartBattery = new CartCouchBattery(ICartBattery.Type.USER, MAX_CHARGE);
+	public final static CartCouchBattery cartBattery = new CartCouchBattery(ICartBattery.Type.USER, MAX_CHARGE);
 	public int tempMode = 0; 
 	private final PhantomInventory invFilter = new PhantomInventory(7, this);
 	private int update = MiscTools.RANDOM.nextInt();
@@ -327,7 +324,7 @@ public class EntityCartCouch extends EntityModelledCarriage
     
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityCartBattery.CHARGE_CART_CAPABILITY || super.hasCapability(capability, facing);
+        return capability == CapabilitiesCharge.CART_BATTERY || super.hasCapability(capability, facing);
     }
 	
 	@Override
@@ -454,7 +451,7 @@ public class EntityCartCouch extends EntityModelledCarriage
 	@SuppressWarnings("unchecked")
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityCartBattery.CHARGE_CART_CAPABILITY)
+        if (capability == CapabilitiesCharge.CART_BATTERY)
             return (T) cartBattery;
         return super.getCapability(capability, facing);
     }

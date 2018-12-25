@@ -16,11 +16,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = RCCosmetic.MODID, version = RCCosmetic.VERSION, name = RCCosmetic.NAME, dependencies="required-after:Forge@[12.18.2.2107,);required-after:railcraft@[10.1.0,)")
+@Mod(modid = RCCosmetic.MODID, version = RCCosmetic.VERSION, name = RCCosmetic.NAME, dependencies="required-after:Forge@[12.18.2.2107,);required-after:railcraft@[10.4.1,)")
 public class RCCosmetic
 {
     public static final String MODID = "rccosmetic";
-    public static final String VERSION = "3.0.5";
+    public static final String VERSION = "3.0.6";
     public static final String NAME = "Railcraft Cosmetic Additions";
     
     public static CreativeTabs tabRCCos= new CreativeTabs("tabRCCos") 

@@ -1,19 +1,17 @@
 package cz.hanakocz.rccosmetic.recipes;
 
 import cz.hanakocz.rccosmetic.items.ItemsInit;
-import mods.railcraft.common.blocks.machine.beta.EnumMachineBeta;
+import mods.railcraft.common.blocks.RailcraftBlocks;
 import mods.railcraft.common.items.Metal;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 public class RecipesCarts 
 {
 	static ItemStack cartFlat = new ItemStack(ItemsInit.ModelledCartFlat);
 	static ItemStack plateIronRC = Metal.IRON.getStack(Metal.Form.PLATE);
-	static ItemStack blockTankRC = new ItemStack(EnumMachineBeta.TANK_IRON_VALVE.block(), 1, 1);
+	static ItemStack blockTankRC = RailcraftBlocks.TANK_IRON_GAUGE.getStack();
 	static Object plating;
 	
 	public static final void init()
@@ -80,7 +78,7 @@ public class RecipesCarts
 	
 	private static void ModelledCartTanker()
 	{
-		if(EnumMachineBeta.TANK_IRON_VALVE.isAvailable())
+		if(RailcraftBlocks.TANK_IRON_GAUGE.isEnabled())
 		{
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(ItemsInit.ModelledCartTanker, 1),		
 				"x",

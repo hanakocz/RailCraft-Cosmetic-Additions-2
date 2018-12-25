@@ -4,14 +4,14 @@ import javax.annotation.Nullable;
 
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartCouch;
 import cz.hanakocz.rccosmetic.entity.carts.EntityCartWood;
-import mods.railcraft.common.blocks.charge.CapabilityCartBattery;
-import mods.railcraft.common.blocks.charge.ICartBattery;
+import mods.railcraft.api.charge.CapabilitiesCharge;
+import mods.railcraft.api.charge.ICartBattery;
 import mods.railcraft.common.carts.EntityLocomotive;
 import mods.railcraft.common.carts.EntityLocomotiveElectric;
 import mods.railcraft.common.gui.containers.RailcraftContainer;
 import mods.railcraft.common.gui.slots.SlotEnergy;
 import mods.railcraft.common.gui.slots.SlotRailcraft;
-import mods.railcraft.common.gui.widgets.ChargeIndicator;
+import mods.railcraft.common.gui.widgets.ChargeBatteryIndicator;
 import mods.railcraft.common.gui.widgets.IndicatorWidget;
 import mods.railcraft.common.plugins.forge.PlayerPlugin;
 import mods.railcraft.common.util.inventory.InvTools;
@@ -34,15 +34,15 @@ public class ContainerCartCouch extends RailcraftContainer
 {   
 	private final EntityCartCouch cart;
 	private final ICartBattery chargeHandler;
-    private final ChargeIndicator chargeIndicator;
+    private final ChargeBatteryIndicator chargeIndicator;
     private double lastCharge;
     
 	public ContainerCartCouch(InventoryPlayer playerInventory, EntityCartCouch cart)
     {
 		super(cart);
 		this.cart = cart;
-		this.chargeHandler = cart.getCapability(CapabilityCartBattery.CHARGE_CART_CAPABILITY, null);
-        this.chargeIndicator = new ChargeIndicator(EntityCartCouch.MAX_CHARGE);
+		this.chargeHandler = cart.getCapability(CapabilitiesCharge.CART_BATTERY, null);
+        this.chargeIndicator = new ChargeBatteryIndicator(EntityCartCouch.cartBattery);
 
         defineSlotsAndWidgets();
         addSlot(new SlotDisc(cart, 0, 13, 18));
@@ -90,6 +90,13 @@ public class ContainerCartCouch extends RailcraftContainer
 	
 	@Override
     @SideOnly(Side.CLIENT)
+    public void updateProgressBar(int id, int data) {
+        if (id == 0)
+            return;//cart.setEnergy(data);
+    }
+	
+	/*@Override
+    @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int value) {
         super.updateProgressBar(id, value);
         switch (id) {
@@ -100,7 +107,7 @@ public class ContainerCartCouch extends RailcraftContainer
                 chargeIndicator.updateCharge(value);
                 break;
         }
-    }
+    }*/
 	
 	@Nullable
     @Override
@@ -175,7 +182,7 @@ public class ContainerCartCouch extends RailcraftContainer
         }
     }
 	
-	private void fillPhantomSlot(SlotRailcraft slot, ItemStack stackHeld, int mouseButton) {
+	protected void fillPhantomSlot(SlotRailcraft slot, ItemStack stackHeld, int mouseButton) {
         if (!slot.canAdjustPhantom())
             return;
         int stackSize = mouseButton == 0 ? stackHeld.stackSize : 1;

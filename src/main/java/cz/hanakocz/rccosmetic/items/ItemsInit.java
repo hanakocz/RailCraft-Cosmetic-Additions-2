@@ -89,7 +89,7 @@ public final class ItemsInit
 		EntityRegistry.registerModEntity(EntityCartContainer.class, "cart.5", 5, RCCosmetic.instance, 256, 3, true);
 		EntityRegistry.registerModEntity(EntityCartTender.class, "cart.6", 6, RCCosmetic.instance, 256, 3, true);
 		EntityRegistry.registerModEntity(EntityCartCage.class, "cart.7", 7, RCCosmetic.instance, 256, 3, true);
-		EntityRegistry.registerModEntity(EntityCartCouch.class, "cart.8", 8, RCCosmetic.instance, 256, 3, true);
+		//EntityRegistry.registerModEntity(EntityCartCouch.class, "cart.8", 8, RCCosmetic.instance, 256, 3, true);
 		
 		register(ModelledCartOpen);
 		register(ModelledCartTanker);
@@ -99,7 +99,7 @@ public final class ItemsInit
 		register(ModelledCartContainer);
 		//register(ModelledCartTender);
 		register(ModelledCartCage);
-		register(ModelledCartCouch);
+		//register(ModelledCartCouch);
 		
 		register(TrainOperatorCap);
 		register(TrainOperatorRedCap);
